@@ -17,14 +17,11 @@ import static java.util.List.of;
 @Component
 public class OrderDao {
 
-    private static final String CUSTOMER_URI = "http://localhost:9090/customers/%s";
-    private static final String PRODUCT_URI = "http://localhost:9090/customers/%s";
-    private final RestTemplate restTemplate;
+    private static final String CUSTOMER_URI = "http://localhost:8081/customers/%s";
+    private static final String PRODUCT_URI = "http://localhost:8082/products/%s";
     private Map<String, OrderDto> orders;
 
-    public OrderDao(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-    }
+    private final RestTemplate restTemplate;
 
     @PostConstruct
     public void init() {
@@ -44,15 +41,19 @@ public class OrderDao {
         );
     }
 
+    public OrderDao(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
     private Optional<ProductDto> getProduct(String productId) {
-        return Optional.ofNullable(restTemplate.getForObject(format(PRODUCT_URI, productId), ProductDto.class));
+       return Optional.ofNullable(restTemplate.getForObject(format(PRODUCT_URI, productId), ProductDto.class));
     }
 
     private Optional<CustomerDto> getCustomer(String customerId) {
         return Optional.ofNullable(restTemplate.getForObject(format(CUSTOMER_URI, customerId), CustomerDto.class));
     }
 
-    public Optional<OrderDto> getOrder(String productId) {
-        return Optional.ofNullable(orders.get(productId));
+    public Optional<OrderDto> getOrder(String orderId) {
+        return Optional.ofNullable(orders.get(orderId));
     }
 }
