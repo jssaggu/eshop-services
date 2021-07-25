@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: products
+spec:
+  selector:
+    app: products
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products
+  labels:
+    app: products
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+        - name: products
+          image: eshop/product-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8082

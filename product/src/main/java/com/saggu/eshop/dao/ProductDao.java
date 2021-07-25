@@ -4,8 +4,11 @@ import com.saggu.eshop.dto.ProductDto;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ProductDao {
+
+    public static final String instanceId = UUID.randomUUID().toString();
 
     static final Map<String, ProductDto> products = Map.of(
             "P100", ProductDto.builder().productId("P100").productName("Sony TV").build(),
