@@ -9,7 +9,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ProductDto {
-    private final String fromServerId = ProductDao.instanceId;
+    private final String fromServerId = ProductDao.instanceId + "-v3";
     private String productId;
     private String productName;
 }
