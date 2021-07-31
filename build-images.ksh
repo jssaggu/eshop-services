@@ -2,7 +2,7 @@
 
 cd /Users/jasvinder.saggu/projects/temp/micro-services/eshop-services
 
-mvn clean install
+mvn clean install -DskipTests
 
 cd api-gateway
 docker build -t eshop/api-gateway:0.0.1 .
