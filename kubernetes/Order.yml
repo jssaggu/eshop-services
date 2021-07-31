@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: eshop/orders:0.0.3
+          image: eshop/orders:0.0.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8083
