@@ -3,16 +3,22 @@ services:
   customers:
     image: eshop/customers:0.0.1
     container_name: 'customers'
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
     ports:
       - 8081:8081
   products:
     image: eshop/products:0.0.1
     container_name: 'products'
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
     ports:
       - 8082:8082
   orders:
     image: eshop/orders:0.0.1
     container_name: 'orders'
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
     depends_on:
       - products
       - customers
@@ -21,6 +27,8 @@ services:
   api-gateway:
     image: eshop/api-gateway:0.0.1
     container_name: 'api-gateway'
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
     depends_on:
       - products
       - customers

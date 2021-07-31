@@ -3,6 +3,7 @@ package com.saggu.eshop.dao;
 import com.saggu.eshop.dto.CustomerDto;
 import com.saggu.eshop.dto.OrderDto;
 import com.saggu.eshop.dto.ProductDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -13,18 +14,27 @@ import java.util.Optional;
 
 import static java.lang.String.format;
 import static java.util.List.of;
+import static java.util.Optional.ofNullable;
 
 @Component
 public class OrderDao {
+    @Value("${eshop.host-names.customers:localhost}")
+    private String hostNameCustomers;
 
-    private static final String CUSTOMER_URI = "http://customers:8081/customers/%s";
-    private static final String PRODUCT_URI = "http://products:8082/products/%s";
+    @Value("${eshop.host-names.products:localhost}")
+    private String hostNameProducts;
+
+    private static final String CUSTOMER_URI = "http://%s:8081/customers/%s";
+    private static final String PRODUCT_URI = "http://%s:8082/products/%s";
+
     private Map<String, OrderDto> orders;
 
     private final RestTemplate restTemplate;
 
     @PostConstruct
     public void init() {
+        System.out.println("Host Customers: " + hostNameCustomers);
+        System.out.println("Host Products: " + hostNameProducts);
         orders = Map.of(
                 "O100", OrderDto.builder()
                         .orderId("O100")
@@ -46,14 +56,22 @@ public class OrderDao {
     }
 
     private Optional<ProductDto> getProduct(String productId) {
-       return Optional.ofNullable(restTemplate.getForObject(format(PRODUCT_URI, productId), ProductDto.class));
+       return ofNullable(
+               restTemplate
+                       .getForObject(
+                               format(PRODUCT_URI, hostNameProducts, productId),
+                               ProductDto.class));
     }
 
     private Optional<CustomerDto> getCustomer(String customerId) {
-        return Optional.ofNullable(restTemplate.getForObject(format(CUSTOMER_URI, customerId), CustomerDto.class));
+        return ofNullable(
+                restTemplate
+                        .getForObject(
+                                format(CUSTOMER_URI, hostNameCustomers, customerId),
+                                CustomerDto.class));
     }
 
     public Optional<OrderDto> getOrder(String orderId) {
-        return Optional.ofNullable(orders.get(orderId));
+        return ofNullable(orders.get(orderId));
     }
 }

@@ -1,2 +1,13 @@
 server:
   port: 8083
+---
+spring:
+  application:
+    name: Orders
+  config:
+    activate:
+      on-profile: prod
+eshop:
+  host-names:
+    customers: customers
+    products: products

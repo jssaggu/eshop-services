@@ -4,32 +4,35 @@
 
 ### Products
 This project contains product related services.
+
 ### Customers
 This project contains customer related services.
+
 ### Orders
 This project contains order related services.<br>
 This project depends on both Customer and Product services.<br>
 
-The OrderDao.java contains the services URIs to connect to above services. 
+### API Gateway
+Spring Gateway (Formerly known as Zuul)
+
+The OrderDao.java contains the services URIs to connect to above services.
+
+Application uses `default` and `prod` profiles.
+
 ### Local Testing
-Update URIs to use localhost
-```java
- private static final String CUSTOMER_URI = "http://localhost:8081/customers/%s";
- private static final String PRODUCT_URI = "http://localhost:8082/products/%s";
-```
+When applications started using IDE or from command-prompt then it will automatically use `default profile.` 
+
 ### Container based Testing (Docker / Kubernetes)
-Use service name to test in Containers, and use docker-compose to start the services
-```java
- private static final String CUSTOMER_URI = "http://customers:8081/customers/%s";
- private static final String PRODUCT_URI = "http://products:8082/products/%s";
-  
-```
+When running services inside docker containers then it uses `prod` profile and 
+services URIs will be picked up from the application.yml files of the relevant application.  
 
 ### Docker
 * Use `build-images.ksh` script to build all the projects. This script will also create images.
 * Use `docker-compose up -d` or `docker compose up -d` to start docker containers.
 
-Once images are deployed and started use the following to test:
+All in one: `./build-images.ksh; docker compose up -d`
+
+Once Docker containers started then use the following to test:
 * http://localhost:8080/products/P100
   * Other available products: P200, P300
 * http://localhost:8080/customers/C100

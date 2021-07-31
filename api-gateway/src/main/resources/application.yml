@@ -1,20 +1,14 @@
 server:
   port: 8080
-
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: products
-#          predicates:
-#            - Path=/products/*
-#          uri: http://localhost:9090
-#        - id: customers
-#          predicates:
-#            - Path=/customers/*
-#          uri: http://localhost:9090
-#        - id: orders
-#          predicates:
-#            - Path=/orders/*
-#          uri: http://localhost:9090
-
+---
+spring:
+  application:
+    name: API-Gateway
+  config:
+    activate:
+      on-profile: prod
+eshop:
+  host-names:
+    customers: customers
+    products: products
+    orders: orders
