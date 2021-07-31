@@ -17,8 +17,8 @@ import static java.util.List.of;
 @Component
 public class OrderDao {
 
-    private static final String CUSTOMER_URI = "http://localhost:8081/customers/%s";
-    private static final String PRODUCT_URI = "http://localhost:8082/products/%s";
+    private static final String CUSTOMER_URI = "http://customers:8081/customers/%s";
+    private static final String PRODUCT_URI = "http://products:8082/products/%s";
     private Map<String, OrderDto> orders;
 
     private final RestTemplate restTemplate;

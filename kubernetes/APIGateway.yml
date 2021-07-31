@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: eshop/api-gateway-service:0.0.1
+          image: eshop/api-gateway:0.0.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

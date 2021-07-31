@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  customers:
+    image: eshop/customers:0.0.1
+    container_name: 'customers'
+    ports:
+      - 8081:8081
+  products:
+    image: eshop/products:0.0.1
+    container_name: 'products'
+    ports:
+      - 8082:8082
+  orders:
+    image: eshop/orders:0.0.1
+    container_name: 'orders'
+    depends_on:
+      - products
+      - customers
+    ports:
+      - 8083:8083
+  api-gateway:
+    image: eshop/api-gateway:0.0.1
+    container_name: 'api-gateway'
+    depends_on:
+      - products
+      - customers
+      - orders
+    ports:
+      - 8080:8080

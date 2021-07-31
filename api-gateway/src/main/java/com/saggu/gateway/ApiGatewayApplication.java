@@ -22,9 +22,9 @@ public class ApiGatewayApplication {
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		//@formatter:off
 		return builder.routes()
-				.route("customers", r -> r.path("/customers/*").uri("http://localhost:8081"))
-				.route("products", r -> r.path("/products/*").uri("http://localhost:8082"))
-				.route("orders", r -> r.path("/orders/*").uri("http://localhost:8083"))
+				.route("customers", r -> r.path("/customers/*").uri("http://customers:8081"))
+				.route("products", r -> r.path("/products/*").uri("http://products:8082"))
+				.route("orders", r -> r.path("/orders/*").uri("http://orders:8083"))
 				.build();
 		//@formatter:on
 	}

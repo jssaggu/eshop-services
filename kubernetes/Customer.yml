@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: customers
-          image: eshop/customers-service:0.0.1
+          image: eshop/customers:0.0.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8081
